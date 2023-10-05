@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {host} from "../config/keys"
 import { GET_POSITIONS } from './types';
 import { setSnackbarMessageSuccess, setSnackbarMessageError } from './snackbarServices';
 
@@ -8,7 +9,7 @@ const userId = localStorage.getItem('userId');
 export const getPositions = () => (dispatch) => {
   const user = { userId };
   axios
-    .post('/positions/getAll', user)
+    .post(host + '/positions/getAll', user)
     .then((res) => {
       dispatch(setPosition(res.data));
     })
@@ -21,7 +22,7 @@ export const getPositions = () => (dispatch) => {
 export const addPosition = (position) => async (dispatch) => {
   position.userId = userId;
   return await axios
-    .post('/positions/add', position)
+    .post(host + '/positions/add', position)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));
@@ -37,7 +38,7 @@ export const addPosition = (position) => async (dispatch) => {
 // Update postion
 export const updatePosition = (position) => async (dispatch) => {
   return await axios
-    .post('/positions/update', position)
+    .post(host + '/positions/update', position)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));

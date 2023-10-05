@@ -1,13 +1,13 @@
 import axios from 'axios';
 import { GET_ALL_PAYROLLS } from './types';
-
+import {host} from "../config/keys"
 const userId = localStorage.getItem('userId');
 
 // Get payroll employee
 export const getAllPayrollEmployees = () => (dispatch) => {
   const user = { userId };
   axios
-    .post('/payrolls/getAllPayrollEmployees', user)
+    .post(host + '/payrolls/getAllPayrollEmployees', user)
     .then((res) => {
       dispatch(setAllPayrollEmployees(res.data));
     })

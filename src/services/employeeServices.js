@@ -1,14 +1,14 @@
 import axios from 'axios';
 import { GET_EMPLOYEES } from './types';
 import { setSnackbarMessageSuccess, setSnackbarMessageError } from './snackbarServices';
-
+import {host} from "../config/keys"
 const userId = localStorage.getItem('userId');
 
 // Get all employee
 export const getEmployees = () => (dispatch) => {
   const user = { userId };
   axios
-    .post('/employees/getAll', user)
+    .post(host + '/employees/getAll', user)
     .then((res) => {
       dispatch(setEmployees(res.data));
     })
@@ -21,7 +21,7 @@ export const getEmployees = () => (dispatch) => {
 export const addEmployee = (employee) => async (dispatch) => {
   employee.userId = userId;
   return await axios
-    .post('/employees/add', employee)
+    .post(host + '/employees/add', employee)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));
@@ -37,7 +37,7 @@ export const addEmployee = (employee) => async (dispatch) => {
 // Update employee
 export const updateEmployee = (employee) => async (dispatch) => {
   return await axios
-    .post('/employees/update', employee)
+    .post(host + '/employees/update', employee)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));

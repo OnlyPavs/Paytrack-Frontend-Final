@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {host} from "../config/keys"
 import { GET_PAYROLLS } from './types';
 import { setSnackbarMessageSuccess, setSnackbarMessageError } from './snackbarServices';
 import { setUserLoading } from './authServices';
@@ -9,7 +10,7 @@ const userId = localStorage.getItem('userId');
 export const getPayrolls = () => (dispatch) => {
   const user = { userId };
   axios
-    .post('/payrolls/getAll', user)
+    .post(host + '/payrolls/getAll', user)
     .then((res) => {
       dispatch(setPayrolls(res.data));
     })
@@ -26,7 +27,7 @@ export const addPayroll = (payroll) => async (dispatch) => {
   dispatch(setUserLoading(true));
 
   return await axios
-    .post('/payrolls/add', payroll)
+    .post(host + '/payrolls/add', payroll)
     .then((res) => {
       // Toggle off loading animation
       dispatch(setUserLoading(false));

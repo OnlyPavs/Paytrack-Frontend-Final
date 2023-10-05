@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {host} from "../config/keys"
 import { GET_PAYROLLS_EMPLOYEES } from './types';
 import { setSnackbarMessageSuccess, setSnackbarMessageError } from './snackbarServices';
 import { setUserLoading } from './authServices';
@@ -12,7 +13,7 @@ export const getPayrollEmployees = (newPayroll) => (dispatch) => {
 
   newPayroll.userId = userId;
   axios
-    .post('/payrolls/getPayrollEmployees', newPayroll)
+    .post(host + '/payrolls/getPayrollEmployees', newPayroll)
     .then((res) => {
       const payroll = {
         payrollEmployees: res.data,
@@ -32,7 +33,7 @@ export const getPayrollEmployees = (newPayroll) => (dispatch) => {
 // Update payroll employee
 export const updatePayrollEmployee = (payroll) => async (dispatch) => {
   return await axios
-    .post('/payrolls/updatePayrollEmployees', payroll)
+    .post(host + '/payrolls/updatePayrollEmployees', payroll)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));

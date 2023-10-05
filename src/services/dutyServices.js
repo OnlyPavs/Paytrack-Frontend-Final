@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {host} from "../config/keys"
 import { GET_DUTIES } from './types';
 import { setSnackbarMessageSuccess, setSnackbarMessageError } from './snackbarServices';
 
@@ -8,7 +9,7 @@ const userId = localStorage.getItem('userId');
 export const getDuties = () => (dispatch) => {
   const user = { userId };
   axios
-    .post('/duties/getAll', user)
+    .post(host + '/duties/getAll', user)
     .then((res) => {
       dispatch(setDuties(res.data));
     })
@@ -21,7 +22,7 @@ export const getDuties = () => (dispatch) => {
 export const addDuty = (duty) => async (dispatch) => {
   duty.userId = userId;
   return await axios
-    .post('/duties/add', duty)
+    .post(host + '/duties/add', duty)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));
@@ -37,7 +38,7 @@ export const addDuty = (duty) => async (dispatch) => {
 // Update duty
 export const updateDuty = (duty) => async (dispatch) => {
   return await axios
-    .post('/duties/update', duty)
+    .post(host + '/duties/update', duty)
     .then((res) => {
       // Toggle on notification
       dispatch(setSnackbarMessageSuccess(res.data.msg));

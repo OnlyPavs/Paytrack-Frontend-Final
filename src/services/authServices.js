@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+import {host} from "../config/keys"
+
 import { GET_ERRORS, SET_CURRENT_USER, USER_LOADING } from './types';
 
 import setAuthToken from '../utils/setAuthToken';
@@ -12,7 +14,7 @@ export const registerUser = (userData) => (dispatch) => {
   // Toggle on loading animation
   dispatch(setUserLoading(true));
   axios
-    .post('/users/register', userData)
+    .post(host + '/users/register', userData)
     .then((res) => {
       // Process token from server
       const { token, user } = res.data;
@@ -39,7 +41,7 @@ export const loginUser = (userData) => (dispatch) => {
   // Toggle on loading animation
   dispatch(setUserLoading(true));
   axios
-    .post('/users/login', userData)
+    .post(host + '/users/login', userData)
     .then((res) => {
       // Process token from server
       const { token, user } = res.data;
@@ -66,7 +68,7 @@ export const updateUserPassword = (userData) => async (dispatch) => {
   // Toggle on loading animation
   await dispatch(setUserLoading(true));
   await axios
-    .post('/users/updatePassword', userData)
+    .post(host + '/users/updatePassword', userData)
     .then((res) => {
       // Toggle off loading animation
       dispatch(setUserLoading(false));
